@@ -3,7 +3,7 @@ clear;
 stockID = '600005';
 
 tableName = strcat('CLICK', stockID);
-address = strcat('/home/ecsark/Documents/Lab/Stock/click/', tableName,'.db');
+address = strcat('/home/ecsark/Documents/Lab/StockLab/click/', tableName,'.db');
 
 conn = database(address,'','','org.sqlite.JDBC',strcat('jdbc:sqlite:',address));
 setdbprefs('DataReturnFormat','cellarray');
