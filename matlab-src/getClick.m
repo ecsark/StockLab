@@ -1,15 +1,11 @@
-clear;
+function [date, clicksum] = getClick(stockID, threshold)
 
-stockID = '600005';
-
-tableName = strcat('CLICK', stockID);
-address = strcat('/home/ecsark/Documents/Lab/StockLab/click/', tableName,'.db');
+address = strcat('/home/ecsark/Documents/Lab/StockLab/click/CLICK', stockID,'.db');
 
 conn = database(address,'','','org.sqlite.JDBC',strcat('jdbc:sqlite:',address));
-setdbprefs('DataReturnFormat','cellarray');
 
 date = [];
-click = [];
+clicksum = [];
 
 for year = 2012:2013
     for month = 1:12
@@ -29,18 +25,28 @@ for year = 2012:2013
             sql = strcat(sql, '%"');
             
             curs = exec(conn, sql);
-            curs = fetch(curs);
+            rst = fetch(curs);
             
-            if ~( isempty(curs.Data) )
-                s = cell2mat(curs.Data);
+            if ~( isempty(rst.Data) )
+                s = cell2mat(rst.Data);
                 if strcmpi( 'No Data',s)==1
                     continue;
                 end;
+                sqlsub = horzcat(sql, ' AND click>',int2str(threshold));
+                curs = exec(conn, sqlsub);
+                curs = fetch(curs);
+                ss = cell2mat(curs.Data);
+                if strcmpi( 'No Data',ss)~=1
+                    s = s-ss;
+                end;
                 date = [date, [year;month;day]];
-                click = [click, s];
+                clicksum = [clicksum, s];
             end;
+            close(curs);
         end;
     end;
 end;
 
 close(conn);
+
+end

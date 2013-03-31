@@ -1,10 +1,11 @@
+function [volume,amount,endprice] = getExchange(stockID, date)
+
 volume = zeros(1,size(date,2));
 amount =  zeros(1,size(date,2));
-price = zeros(1,size(date,2));
+endprice = zeros(1,size(date,2));
 
 csvName = strcat('SH', stockID,'.CSV');
 priceHistory = csvread(csvName);
-
 
 j=1;
 
@@ -22,12 +23,12 @@ for i=1:size(priceHistory,1)
         end;
         volume(1,j) = priceHistory(i,6);
         amount(1,j) = priceHistory(i,7);
-        price(1,j) = priceHistory(i,5);
-        %volume = [volume, priceHistory(j,6)];
-        %amount = [amount, priceHistory(j,7)];
+        endprice(1,j) = priceHistory(i,5);
         j = j+1;
         if j > size(date,2)
             break;
         end;
     end;
 end;
+
+end
