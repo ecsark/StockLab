@@ -10,7 +10,8 @@ clicksum = [];
 for year = 2012:2013
     for month = 1:12
         for day = 1:31
-            sql = strcat('SELECT SUM(click) FROM CLICK',stockID,' WHERE date LIKE "%', int2str(year),   '-');
+            sql = strcat('SELECT SUM(click) FROM CLICK',stockID,...,
+                ' WHERE date LIKE "%', int2str(year),   '-');
             if month<10
                 sql = strcat(sql, '0', int2str(month));
             else

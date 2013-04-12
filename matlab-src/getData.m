@@ -1,12 +1,23 @@
 clear;
-stockIDList ={'600000','600004','600005','600006','600007','600008','600009'};
-%stockIDList = {'600004','600005'};
+%stockIDList ={'600000','600004','600005','600006','600007','600008', ...
+%    '600009','600010','600011',};
+%stockIDList = {'600005'};
 
-for i = 1:size(stockIDList,2)
-    stockID = cell2mat(stockIDList(i));
+directory = '/home/ecsark/Documents/Lab/StockLab/';
+
+addpath(genpath(directory));
+
+stockList = getStockList(directory);
+
+
+
+for i = 1:size(stockList,2)
+    %stockID = cell2mat(stockIDList(i));
+    stockID = cell2mat(stockList(i));
     [date,clicksum] = getClick(stockID,100000);
     [volume, amount, endprice, breakpoints] = getExchange(stockID,date);
-    [wDate, wClickSum, wVolume, wAmount, wEndPrice] = rmBreak(date, clicksum, volume, amount, endprice, breakpoints);
+    [wDate, wClickSum, wVolume, wAmount, wEndPrice] = rmBreak(date, ...
+        clicksum, volume, amount, endprice, breakpoints);
     
     %{
     ds = cellstr('');
@@ -21,7 +32,11 @@ for i = 1:size(stockIDList,2)
     ds = 1:size(wAmount,2);
     ratioClick = 1000/(max(wClickSum)-min(wClickSum));
     ratioEndPrice = 1000/(max(wEndPrice)-min(wEndPrice));
-    figure(i)    
-    plot(ds,(wClickSum-min(wClickSum)).*ratioClick,'m-',ds,(wEndPrice-min(wEndPrice)).*ratioEndPrice,'-.^')
+    f = figure(i);
+    plot(ds,(wClickSum-min(wClickSum)).*ratioClick,'m-v',ds, ...
+        (wEndPrice-min(wEndPrice)).*ratioEndPrice,'-.^')
     title(stockID)
+    print(i,'-dpng',strcat(directory,'fig/',stockID,'.png'))
+    close(f)
+    stockID
 end;

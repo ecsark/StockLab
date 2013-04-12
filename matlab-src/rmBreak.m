@@ -1,4 +1,5 @@
-function [wDate, wClickSum, wVolume, wAmount, wEndPrice] = rmBreak(date, clicksum, volume, amount, endprice, breakpoints)
+function [wDate, wClickSum, wVolume, wAmount, wEndPrice] = rmBreak(date,...
+    clicksum, volume, amount, endprice, breakpoints)
 
 wClickSum = [];
 wVolume = [];
