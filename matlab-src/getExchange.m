@@ -5,7 +5,11 @@ amount =  zeros(1,size(date,2));
 endprice = zeros(1,size(date,2));
 breakpoints = [];
 
-csvName = strcat('SH', stockID,'.CSV');
+csvName = strcat('SZ', stockID,'.CSV');
+if(strcmp(stockID(1:1),'6')==1)
+    csvName = strcat('SH', stockID,'.CSV');
+end;
+
 priceHistory = csvread(csvName);
 
 j=1;

@@ -16,7 +16,7 @@ for i=1:size(volume,2)
             continue;
         end;
         wVolume = [wVolume,volume(1,i)];
-        wClickSum = [wClickSum, clicksum(1,i)];
+        wClickSum = [wClickSum, clicksum(:,i)];
         wAmount = [wAmount, amount(1,i)];
         wEndPrice = [wEndPrice, endprice(1,i)];
         wDate = [wDate, date(:,i)];

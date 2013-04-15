@@ -6,7 +6,7 @@ prices = dir(strcat(directory,'price/SH6*.CSV'));
 priceList = [];
 
 for i = 1:size(prices,1)
-    parts = regexp(prices(i).name,'H|\.','split');
+    parts = regexp(prices(i).name,'Z|H|\.','split');
     priceList = [priceList, parts(2)];    
 end;
 

@@ -1,5 +1,5 @@
 *~
 *.db
-click/
-price/
-fig/
+click/*
+price/*
+fig/*

@@ -9,7 +9,9 @@ addpath(genpath(directory));
 
 stockList = getStockList(directory);
 
+address = strcat(directory, 'CLICK_SUMMARY.db');
 
+conn = database(address,'','','org.sqlite.JDBC',strcat('jdbc:sqlite:',address));
 
 for i = 1:size(stockList,2)
     %stockID = cell2mat(stockIDList(i));

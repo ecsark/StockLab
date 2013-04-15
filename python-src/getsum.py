@@ -5,7 +5,7 @@ import os
 import re
 
 def getQuant(curorg,stockID,itemName,date,threshold):
-	sql = "SELECT SUM(%s) FROM CLICK%s WHERE date LIKE %s" % (itemName,stockID,'\'%'+date+'%\'')
+	sql = "SELECT SUM(%s) FROM %s WHERE date LIKE %s" % (itemName,'CLICK'+stockID,'\'%'+date+'%\'')
 	curorg.execute(sql)
 	rst = curorg.fetchone()[0]
 	if rst == None:
@@ -58,10 +58,11 @@ def process(rootDir,begindate,enddate):
 	    	db_original = sqlite3.connect(os.path.join(rootDir, f))
 	    	curorg = db_original.cursor()
 	       	stockID = re.split('K|\.',str(f))[1]
+	       	print stockID, str(index*100/len(lists))+'%'
 	       	handlesingle(curorg,stockID,start,end)
 	       	db_clean.commit()
 	       	db_original.close()
-	       	print stockID, str(index*100/len(lists))+'%'
+	       	
 
 
 
