@@ -17,6 +17,7 @@ j=1;
 firstRun = 1;
 skip = 0;
 
+
 for i=1:size(priceHistory,1)
     dd = priceHistory(i,1);
     dy = floor(dd/10000);
@@ -49,5 +50,9 @@ for i=1:size(priceHistory,1)
         end;
     end;
 end;
+
+
+
+
 
 end
